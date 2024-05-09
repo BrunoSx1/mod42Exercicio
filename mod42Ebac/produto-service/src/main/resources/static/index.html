@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Produto API Test</title>
+</head>
+<body>
+    <h1>Produto API Test</h1>
+    <button onclick="getAllClientes()">Buscar Todos Produtos</button>
+    <div id="result"></div>
+
+    <script>
+        function getAllClientes() {
+            fetch('http://localhost:8080/clientes')
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = ''; // Clear previous results
+                data.forEach(cliente => {
+                    const p = document.createElement('p');
+                    p.textContent = `Nome: ${cliente.nome}, Email: ${cliente.email}, Telefone: ${cliente.telefone}`;
+                    resultDiv.appendChild(p);
+                });
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+    </script>
+</body>
+</html>
